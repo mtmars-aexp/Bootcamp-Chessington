@@ -25,7 +25,7 @@ public class Pawn extends AbstractPiece {
         if (isWhite() && isSpaceOneAheadEmpty(from, direction, board)) {
             Coordinates to = new Coordinates(from.getRow() +(direction), from.getCol());
             movesArray.add(new Move(from, to));
-        } else if (isWhite() && isSpaceOneAheadEmpty(from, direction, board)) {
+        } else if (isBlack() && isSpaceOneAheadEmpty(from, direction, board)) {
             Coordinates to = new Coordinates(from.getRow() +(direction), from.getCol());
             movesArray.add(new Move(from, to));
         }
