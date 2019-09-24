@@ -22,23 +22,23 @@ public class Pawn extends AbstractPiece {
                 -1:
                 1;
 
-        if (isWhite() && isSpaceOneAheadEmpty(from, direction, board)) {
-            Coordinates to = new Coordinates(from.getRow() +(direction), from.getCol());
-            movesArray.add(new Move(from, to));
-        } else if (isWhite() && isSpaceOneAheadEmpty(from, direction, board)) {
-            Coordinates to = new Coordinates(from.getRow() +(direction), from.getCol());
-            movesArray.add(new Move(from, to));
-        }
+        if(isNotOnOppositeRow(from)) {
 
-        if (isWhite() && isOnHomeRow(from)) {
-            Coordinates to2 = new Coordinates(from.getRow() - 2, from.getCol());
-            movesArray.add(new Move(from, to2));
-        } else if (isBlack() && isOnHomeRow(from)) {
-            Coordinates to2 = new Coordinates(from.getRow() + 2, from.getCol());
-            movesArray.add(new Move(from, to2));
-        }
+            if (isWhite() && isSpaceOneAheadEmpty(from, direction, board)) {
+                Coordinates to = new Coordinates(from.getRow() +(direction), from.getCol());
+                movesArray.add(new Move(from, to));
+            } else if (isBlack() && isSpaceOneAheadEmpty(from, direction, board)) {
+                Coordinates to = new Coordinates(from.getRow() +(direction), from.getCol());
+                movesArray.add(new Move(from, to));
+            }
 
-        if (board.get(new Coordinates(from.getRow() +(direction), from.getCol())) == null){
+            if (isWhite() && isOnHomeRow(from) && isSpaceTwoAheadEmpty(from, direction, board)) {
+                Coordinates to2 = new Coordinates(from.getRow() - 2, from.getCol());
+                movesArray.add(new Move(from, to2));
+            } else if (isBlack() && isOnHomeRow(from) && isSpaceTwoAheadEmpty(from, direction, board)) {
+                Coordinates to2 = new Coordinates(from.getRow() + 2, from.getCol());
+                movesArray.add(new Move(from, to2));
+            }
 
         }
 
@@ -52,12 +52,19 @@ public class Pawn extends AbstractPiece {
         return ((isWhite() && from.getRow() == whiteHomeRow) || (isBlack() && from.getRow() == blackHomeRow));
     }
 
+    private boolean isNotOnOppositeRow(Coordinates from){
+        int whiteOppositeRow = 0;
+        int blackOppositeRow = 7;
+
+        return ((isWhite() && from.getRow() != whiteOppositeRow) || (isBlack() && from.getRow() != blackOppositeRow));
+    }
+
     private boolean isSpaceOneAheadEmpty(Coordinates from, int direction, Board board){
         return board.get(new Coordinates(from.getRow()+(direction),from.getCol())) == null;
     }
 
-    private boolean isSpaceTwoAheadEmpty(){
-        return true;
+    private boolean isSpaceTwoAheadEmpty(Coordinates from, int direction, Board board){
+        return board.get(new Coordinates(from.getRow()+(2*direction),from.getCol())) == null;
     }
 
     private boolean isBlack(){
