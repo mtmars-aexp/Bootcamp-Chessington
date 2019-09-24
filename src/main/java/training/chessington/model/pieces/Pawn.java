@@ -18,29 +18,55 @@ public class Pawn extends AbstractPiece {
 
         List<Move> movesArray = new ArrayList<>();
 
-        Coordinates to = getColour().equals(PlayerColour.WHITE) ?
-                new Coordinates(from.getRow()-1,from.getCol()):
-                new Coordinates(from.getRow()+1,from.getCol());
+        int direction = getColour().equals(PlayerColour.WHITE) ?
+                -1:
+                1;
+
+        if (isWhite() && isSpaceOneAheadEmpty(from, direction, board)) {
+            Coordinates to = new Coordinates(from.getRow() +(direction), from.getCol());
             movesArray.add(new Move(from, to));
+        } else if (isWhite() && isSpaceOneAheadEmpty(from, direction, board)) {
+            Coordinates to = new Coordinates(from.getRow() +(direction), from.getCol());
+            movesArray.add(new Move(from, to));
+        }
 
-//        if (getColour().equals(PlayerColour.WHITE) && from.getRow() == 6){
-//            Coordinates to2 = new Coordinates(from.getRow()-2, from.getCol());
-//            movesArray.add(new Move(from, to2));
-//        } else if (getColour().equals(PlayerColour.BLACK) && from.getRow() == 1){
-//            Coordinates to2 = new Coordinates(from.getRow()+2, from.getCol());
-//            movesArray.add(new Move(from, to2));
-//        }
+        if (isWhite() && isOnHomeRow(from)) {
+            Coordinates to2 = new Coordinates(from.getRow() - 2, from.getCol());
+            movesArray.add(new Move(from, to2));
+        } else if (isBlack() && isOnHomeRow(from)) {
+            Coordinates to2 = new Coordinates(from.getRow() + 2, from.getCol());
+            movesArray.add(new Move(from, to2));
+        }
 
-        to = isOnHomeRow(from) ?
-                new Coordinates(from.getRow()-2, from.getCol()):
-                new Coordinates(from.getRow()+2, from.getCol());
-        movesArray.add(new Move(from,to));
+        if (board.get(new Coordinates(from.getRow() +(direction), from.getCol())) == null){
+
+        }
 
         return movesArray;
     }
 
     private boolean isOnHomeRow(Coordinates from){
-        return (getColour().equals(PlayerColour.WHITE) && from.getRow() == 6) ||
-                (getColour().equals(PlayerColour.BLACK) && from.getRow() == 1);
+        int whiteHomeRow = 6;
+        int blackHomeRow = 1;
+
+        return ((isWhite() && from.getRow() == whiteHomeRow) || (isBlack() && from.getRow() == blackHomeRow));
     }
+
+    private boolean isSpaceOneAheadEmpty(Coordinates from, int direction, Board board){
+        return board.get(new Coordinates(from.getCol()+(direction),from.getCol())) == null;
+    }
+
+    private boolean isSpaceTwoAheadEmpty(){
+        return true;
+    }
+
+    private boolean isBlack(){
+        return (getColour().equals(PlayerColour.BLACK));
+    }
+
+    private boolean isWhite(){
+        return (getColour().equals(PlayerColour.WHITE));
+    }
+
+
 }
