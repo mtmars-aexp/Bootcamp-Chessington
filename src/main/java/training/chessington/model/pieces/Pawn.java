@@ -18,29 +18,29 @@ public class Pawn extends AbstractPiece {
 
         List<Move> movesArray = new ArrayList<>();
 
-        if (getColour().equals(PlayerColour.WHITE)) {
-            Coordinates to = new Coordinates(from.getRow()-1,from.getCol());
-            Move move = new Move(from, to);
-            movesArray.add(move);
-        } else if (getColour().equals(PlayerColour.BLACK)) {
-            Coordinates to = new Coordinates(from.getRow()+1,from.getCol());
-            Move move = new Move(from, to);
-            movesArray.add(move);
-        }
+        Coordinates to = getColour().equals(PlayerColour.WHITE) ?
+                new Coordinates(from.getRow()-1,from.getCol()):
+                new Coordinates(from.getRow()+1,from.getCol());
+            movesArray.add(new Move(from, to));
 
-        if (getColour().equals(PlayerColour.WHITE) && from.getRow() == 6){
-            Coordinates to = new Coordinates(from.getRow()-2, from.getCol());
-            Move move = new Move(from, to);
-            movesArray.add(move);
-        } else if (getColour().equals(PlayerColour.BLACK) && from.getRow() == 1){
-            Coordinates to = new Coordinates(from.getRow()+2, from.getCol());
-            Move move = new Move(from, to);
-            movesArray.add(move);
-        }
+//        if (getColour().equals(PlayerColour.WHITE) && from.getRow() == 6){
+//            Coordinates to2 = new Coordinates(from.getRow()-2, from.getCol());
+//            movesArray.add(new Move(from, to2));
+//        } else if (getColour().equals(PlayerColour.BLACK) && from.getRow() == 1){
+//            Coordinates to2 = new Coordinates(from.getRow()+2, from.getCol());
+//            movesArray.add(new Move(from, to2));
+//        }
 
-
-
+        to = isOnHomeRow(from) ?
+                new Coordinates(from.getRow()-2, from.getCol()):
+                new Coordinates(from.getRow()+2, from.getCol());
+        movesArray.add(new Move(from,to));
 
         return movesArray;
+    }
+
+    private boolean isOnHomeRow(Coordinates from){
+        return (getColour().equals(PlayerColour.WHITE) && from.getRow() == 6) ||
+                (getColour().equals(PlayerColour.BLACK) && from.getRow() == 1);
     }
 }
