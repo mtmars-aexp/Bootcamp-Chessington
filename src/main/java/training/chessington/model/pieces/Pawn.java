@@ -53,7 +53,7 @@ public class Pawn extends AbstractPiece {
     }
 
     private boolean isSpaceOneAheadEmpty(Coordinates from, int direction, Board board){
-        return board.get(new Coordinates(from.getCol()+(direction),from.getCol())) == null;
+        return board.get(new Coordinates(from.getRow()+(direction),from.getCol())) == null;
     }
 
     private boolean isSpaceTwoAheadEmpty(){
