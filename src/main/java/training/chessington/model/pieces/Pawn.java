@@ -28,6 +28,16 @@ public class Pawn extends AbstractPiece {
             movesArray.add(move);
         }
 
+        if (getColour().equals(PlayerColour.WHITE) && from.getRow() == 6){
+            Coordinates to = new Coordinates(from.getRow()-2, from.getCol());
+            Move move = new Move(from, to);
+            movesArray.add(move);
+        } else if (getColour().equals(PlayerColour.BLACK) && from.getRow() == 1){
+            Coordinates to = new Coordinates(from.getRow()+2, from.getCol());
+            Move move = new Move(from, to);
+            movesArray.add(move);
+        }
+
 
 
 
