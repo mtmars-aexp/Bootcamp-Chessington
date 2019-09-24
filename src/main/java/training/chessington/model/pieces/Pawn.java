@@ -46,7 +46,7 @@ public class Pawn extends AbstractPiece {
             }
 
             if (isPieceDiagonallyRight(from, direction, board)){
-                Coordinates to = new Coordinates(from.getRow() + (direction), from.getCol() + (direction));
+                Coordinates to = new Coordinates(from.getRow() + (direction), from.getCol() - (direction));
                 movesArray.add(new Move(from, to));
             }
 
@@ -88,15 +88,15 @@ public class Pawn extends AbstractPiece {
 
     private boolean isPieceDiagonallyLeft(Coordinates from, int direction, Board board){
         if ((isWhite() && from.getCol() != 0) || (isBlack() && from.getCol() != 7)) {
-            return board.get(new Coordinates(from.getRow() + (direction), from.getCol() + (direction))) != null;
+            return (board.get(new Coordinates(from.getRow() + (direction), from.getCol() + (direction))) != null) && board.get(new Coordinates(from.getRow() + (direction), from.getCol() + (direction))).getColour() != getColour();
         } else {
             return false;
         }
     }
 
     private boolean isPieceDiagonallyRight(Coordinates from, int direction, Board board) {
-        if ((isWhite() && from.getCol() != 0) || (isBlack() && from.getCol() != 7)) {
-            return board.get(new Coordinates(from.getRow() + (direction), from.getCol() - (direction))) != null;
+        if ((isWhite() && from.getCol() != 7) || (isBlack() && from.getCol() != 0)) {
+            return (board.get(new Coordinates(from.getRow() + (direction), from.getCol() - (direction))) != null) && board.get(new Coordinates(from.getRow() + (direction), from.getCol() - (direction))).getColour() != getColour();
         } else {
             return false;
         }
