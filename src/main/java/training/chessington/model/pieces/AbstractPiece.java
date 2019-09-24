@@ -12,17 +12,14 @@ public abstract class AbstractPiece implements Piece {
         this.colour = colour;
     }
 
-    @Override
     public Piece.PieceType getType() {
         return type;
     }
 
-    @Override
     public PlayerColour getColour() {
         return colour;
     }
 
-    @Override
     public String toString() {
         return colour.toString() + " " + type.toString();
     }
