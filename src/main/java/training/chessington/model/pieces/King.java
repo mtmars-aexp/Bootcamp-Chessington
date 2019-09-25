@@ -37,23 +37,6 @@ public class King extends AbstractPiece {
         return movesArray;
     }
 
-    public boolean isOnSouthernEdge(Coordinates from) {
-        return from.getRow() == 7;
-    }
-
-    public boolean isOnNorthernEdge(Coordinates from) {
-        return from.getRow() == 0;
-    }
-
-    public boolean isOnEasternEdge(Coordinates from) {
-        return from.getCol() == 7;
-    }
-
-    public boolean isOnWesternEdge(Coordinates from) {
-        return from.getCol() == 0;
-    }
-
-
     public boolean isCoordinateValid(Coordinates to, Board board) {
         if (to.getRow() >= 0 && to.getRow() <= 7 && to.getCol() >= 0 && to.getCol() <= 7) {
 
